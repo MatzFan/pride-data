@@ -48,5 +48,5 @@ end
 post '/new_doc' do
   name = params[:name]
   source = params[:source]
-  docs.insert(name: name, source: source)
+  settings.docs.insert(name: name, source: source)
 end
