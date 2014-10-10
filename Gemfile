@@ -8,8 +8,9 @@ gem 'unicorn', '4.8.3'
 gem 'mongo', '1.11.1'
 gem 'bson_ext', '1.11.1'
 
+gem 'rspec', '3.1.0'
+
 group :development, :test do
-  gem 'rspec', '3.1.0'
   gem 'better_errors', '2.0.0'
   gem 'shotgun', '0.9'
 end
