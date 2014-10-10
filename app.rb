@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'better_errors'
 require 'mongo'
 require 'json/ext' # required for .to_json
 require_relative 'helpers'
@@ -21,13 +20,12 @@ configure do
   set :docs, Proc.new { mongo_db.collection('docs') } # proc needed here
 end
 
-configure do
+configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.expand_path('..', __FILE__)
 end
 
 get '/' do
-
 
 end
 
