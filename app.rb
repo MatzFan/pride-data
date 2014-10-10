@@ -2,8 +2,14 @@ require 'sinatra'
 require 'better_errors'
 require 'mongo'
 require 'json/ext' # required for .to_json
+require_relative 'helpers'
 
 include Mongo
+
+ENV['RACK_ENV'] ||= 'development'
+
+require 'bundler'
+Bundler.require :default, ENV['RACK_ENV'].to_sym
 
 configure do
   mongo_url = ENV['MONGOLAB_URI'] || 'mongodb://localhost:27017/pride-development'
@@ -20,20 +26,8 @@ configure do
   BetterErrors.application_root = File.expand_path('..', __FILE__)
 end
 
-helpers do
-  # a helper method to turn a string ID
-  # representation into a BSON::ObjectId
-  def object_id bson_string
-    BSON::ObjectId.from_string(bson_string)
-  end
+get '/' do
 
-  def doc_by_name doc_name
-    settings.docs.find_one(name: doc_name).to_json
-  end
-
-  def doc_source doc_name
-    JSON.parse(doc_by_name(doc_name))['source']
-  end
 end
 
 get '/document/:name/?' do
